@@ -22,8 +22,8 @@
           <div class="tab-content">
             <div role="tabpanel" class="tab-pane fade in <?php print (($current_page == 'signup') ? "active" : ""); ?>" id="signup">
               <div class="registration-form">
-                <form id="reg-form" class="form-horizontal" action="register" role="form" method="POST">
-                  <input type="hidden" name="_token" value="xzWit1O1t8t53ppjLnPlC8KKQ45BVKznk1aA51I3">
+                <!--<form id="reg-form" class="form-horizontal" action="register" role="form" method="POST">-->
+                <?php print form_open('', 'id="reg-form" class="form-horizontal" role="form"'); ?>
                   <div class="form-group has-feedback home-fix">
                     <div class="col-md-12">
                       <input type="text" name="full_name" id="full_name" value="" required placeholder="Full Name" class="login-input" />
@@ -31,7 +31,7 @@
                   </div>
                   <div class="form-group has-feedback home-fix">
                     <div class="col-md-12">
-                      <input type="text" name="email_address" id="email_address" value="" required placeholder="Email Address" class="login-input" />
+                      <input type="email" name="email_address" id="email_address" value="" required placeholder="Email Address" class="login-input" />
                       <span class="glyphicon form-control-feedback home-icon" id="email_address1"></span> </div>
                   </div>
 
@@ -40,7 +40,7 @@
                   <div style="float: right;">
                     <button class="join-button">Request Credentials</button>
                   </div>
-                </form>
+                <?php print form_close(); ?>
                 <div class="clearfix cf"></div>
               </div>
             </div>
