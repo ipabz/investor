@@ -10,14 +10,7 @@
     </div></div></nav>
 
 	<div class="left">
-    	<div class="list-group">
-          <a href="<?php print site_url('admin'); ?>" class="list-group-item <?php print $pending_verification; ?>">
-          	Pending Verification <span class="badge"><?php print $total_pending; ?></span>
-          </a>
-          <a href="<?php print site_url('admin/users'); ?>" class="list-group-item <?php print $users; ?>">Users</a>
-          <a href="#" class="list-group-item <?php print $add_new_user; ?>">Add New User</a>
-          <a href="#" class="list-group-item"><div class="text-center">User Name</div><div class="btn btn-danger" style="width: 100%">Logout</div></a>
-        </div>
+    	<?php $this->load->view('pages/admin/nav'); ?>
     </div>
     
     <div class="right">
@@ -101,19 +94,3 @@
 	<div class="clearfix"></div>
 
 </div>
-<!-- Footer Links -->
-    <div class="row" style="margin-top: -10px;">
-      <div class="col-lg-12 col-md-12 col-sm-12">
-        <ul class="footer-links">
-          <li> <a href="http://www.vitalyze.me/about-us" target="_blank">About</a> </li>
-          <li> <a href="http://www.vitalyze.me/questions" target="_blank">Help</a> </li>
-          <li> <a href="#" data-toggle="modal" data-target="#terms">Terms</a> </li>
-          <li> <a href="#" data-toggle="modal" data-target="#privacy">Privacy</a> </li>
-          <li> <a href="http://www.vitalyze.me" target="_blank">Contact Us</a> </li>
-        </ul>
-        <div class="text-right" style="color:#ffffff;">&copy; 2015 Vitalyze.Me</div>
-      </div>
-    </div>
-    <br />
-    <br />
-    <div class="clearfix cf"></div>

@@ -98,6 +98,10 @@ class Admin extends CI_Controller {
 			$msg = '<div class="alert alert-success text-center" role="alert">User account successfully deleted.</div><br />';
 		}
 		
+		if ($msg == 'user_created') {
+			$msg = '<div class="alert alert-success text-center" role="alert">User account successfully created.</div><br />';
+		}
+		
 		$data['msg'] = $msg;
 		
 		$this->load->view('common/header', $data);
@@ -149,6 +153,85 @@ class Admin extends CI_Controller {
 		$this->load->model('users_model');
 		$this->users_model->delete_user($user_id);
 		redirect('admin/users/?msg=delete_success');
+	}
+	
+	public function add_user_ui()
+	{
+		$this->load->model('users_model');
+		$msg = "";
+		
+		$this->load->library('form_validation');
+		
+		$this->form_validation->set_rules('full_name', 'Full Name', 'required');
+		$this->form_validation->set_rules('email_address', 'Email Address', 'required|valid_email');
+		$this->form_validation->set_rules('password', 'Password', 'required');
+		
+		if ($this->form_validation->run() == FALSE) {
+			$error = trim(validation_errors());
+			if ($error) {
+				$msg = '<div class="alert alert-warning" role="alert">'.$error.'</div><br />';
+			}
+			
+		} else {
+			
+			$data['is_admin'] = 'no';
+			$data['full_name'] = $this->input->post('full_name', TRUE);
+			$data['email_address'] = $this->input->post('email_address', TRUE);
+			$data['status'] = '1';
+			$data['password'] = $this->input->post('password', TRUE);
+			
+			if (isset($_POST['is_admin'])) {
+				$data['is_admin'] = 'yes';
+			}
+			
+			$this->users_model->create_user(
+				$data['full_name'],
+				$data['email_address'],
+				$data['password'],
+				$data['is_admin'],
+				$data['status']
+			);
+			
+			if (SEND_EMAIL) {
+			
+				$this->load->library('email');
+					
+				$config['mailtype'] = 'html';
+				$this->email->initialize($config);
+	
+				$this->email->from('info@vitalye.me', 'Investor Login Application');
+				$this->email->to($data['email_address']); 
+				
+				$this->email->subject('Requesteded Credentials: Investor Login Application');
+				
+				$exp = explode(' ', $data['full_name']);
+				
+				$msg = "Hi ".ucwords($exp[0]).", <br><br>";
+				$msg .= "Your account has been created. Your password is <br><pre>".$data['password']."</pre><br>";
+				$msg .= "You can now login here: <a href='".site_url('login')."'></a><br><br>";
+				
+				$this->email->message($msg);	
+				
+				$this->email->send();
+				
+			}
+			
+			redirect('admin/users/?msg=user_created');
+			
+		}
+		
+		$data['page_title'] = 'Admin Page';
+		$data['pending_verification'] = '';
+		$data['users'] = '';
+		$data['add_new_user'] = 'active';
+		$data['page_name'] = 'Add User';
+		$data['total_pending'] = count($this->users_model->get_users(true));
+		
+		$data['msg'] = $msg;
+		
+		$this->load->view('common/header', $data);
+		$this->load->view('pages/admin/add_user');
+		$this->load->view('common/footer');
 	}
 	
 }

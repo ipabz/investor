@@ -45,7 +45,7 @@ class Request_credentials extends CI_Controller {
 				
 				$this->email->subject('Request Credentials: Investor Login Application');
 				
-				$msg = "Someone has requested login credentials. Please login to the admin panel. <br><br><strong>Person Details</strong><br><br>";
+				$msg = "Someone has requested login credentials. Please login to the <a href='".site_url('login')."'>admin panel</a>. <br><br><strong>Person Details</strong><br><br>";
 				$msg .= "Full Name: ".ucwords($this->input->post('full_name', TRUE));
 				$msg .= "<br>Email Address: ".$this->input->post('email_address', TRUE);
 				
