@@ -2,6 +2,15 @@
 
 class Admin extends CI_Controller {
 	
+	public function __construct()
+	{
+		parent::__construct();
+		
+		if ($this->session->userdata('user_id') === FALSE OR $this->session->userdata('is_admin') == 'no') {
+			//redirect('login');
+		}	
+	}
+	
 	public function index($offset=0)
 	{
 		$this->load->library('pagination');

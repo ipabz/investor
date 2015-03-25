@@ -13,6 +13,23 @@ class Users_model extends CI_Model {
 		}
 	}
 	
+	public function login($email, $password)
+	{
+		$condition['email_address'] = $email;
+		$condition['password'] = $this->generate_secure_keys(sha1($email), $password, TRUE);
+		$condition['status'] = '1';
+		
+		$query = $this->db->get_where(TABLE_USERS, $condition);
+		//print $this->db->last_query(); die('___________');
+		$data = FALSE;
+		
+		if ($query->num_rows() > 0) {
+			$data = $query->row_array();
+		}
+		
+		return $data;
+	}
+	
 	public function create_user($full_name, $email_address, $password, $is_admin='no', $status='0')
 	{
 		$time = @time();

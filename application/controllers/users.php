@@ -5,8 +5,8 @@ class Users extends CI_Controller {
 	public function __construct() {
 		parent::__construct();
 		
-		if ($this->session->userdata('user_id') === FALSE OR $this->session->userdata('is_admin') == 'no') {
-			redirect('login');
+		if ($this->session->userdata('user_id') === FALSE OR $this->session->userdata('is_admin') == 'yes') {
+			//redirect('login');
 		}
 		
 	}

@@ -46,28 +46,32 @@
             </div>
             <div role="tabpanel" class="tab-pane  <?php print (($current_page == 'login') ? "active" : "fade"); ?>" id="login">
               <div class="login-form">
-                <form id="login-form" class="form-horizontal" method="POST" action="login" role="form">
-                  <input type="hidden" name="_token" value="xzWit1O1t8t53ppjLnPlC8KKQ45BVKznk1aA51I3">
+                <?php print form_open('login', 'id="login-form" class="form-horizontal" role="form"'); ?>
+                  <?php
+				  if (@$msg !== '') {
+					  print @$msg;
+				  }
+				  ?>
                   <div class="form-group has-feedback home-fix">
                     <div class="col-md-12">
-                      <input type="text" name="username" id="username" required placeholder="Email Address" class="login-input" />
+                      <input type="email" name="email_address" value="<?php print set_value('email_adddress'); ?>" id="username" required placeholder="Email Address" class="login-input" />
                       <span class="glyphicon form-control-feedback home-icon" id="username1"></span> </div>
                   </div>
                   <div class="form-group has-feedback home-fix">
                     <div class="col-md-12">
-                      <input type="password" name="login_password" id="login_password" required placeholder="Password" class="login-input" />
+                      <input type="password" name="password" id="login_password" required placeholder="Password" class="login-input" />
                       <span class="glyphicon form-control-feedback home-icon" id="login_password1"></span> </div>
                   </div>
                   <div>
                     <div class="remember-me">
                       <input type="checkbox" value="1" name="remember_me" checked style="margin-top: 2px;">
                       Remember Me </div>
-                    <div class="forgot-pw"> <a href="#">Forgot Password?</a> </div>
+                    <div class="forgot-pw"> <!--<a href="#">Forgot Password?</a>--> </div>
                   </div>
                   <div class="login-button-container" style="float: right;">
                     <button class="login-button">Login</button>
                   </div>
-                </form>
+                <?php print form_close(); ?>
                 <div class="clearfix cf"></div>
               </div>
             </div>
