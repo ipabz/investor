@@ -26,3 +26,6 @@ That's it.
 # Demo
 
 <a href="http://demo.ivanclintpabelona.com/investor/">Demo Site</a>
+
+Email: ipabelona@gmail.com
+passowrd: admin
