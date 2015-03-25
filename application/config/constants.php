@@ -36,7 +36,7 @@ define('FOPEN_READ_WRITE_CREATE',				'a+b');
 define('FOPEN_WRITE_CREATE_STRICT',				'xb');
 define('FOPEN_READ_WRITE_CREATE_STRICT',		'x+b');
 
-define('SEND_EMAIL', FALSE);
+define('SEND_EMAIL', TRUE);
 //define('REQUEST_CREDENTIALS_SEND_TO_EMAIL', 'rahul@vitalye.me');
 define('REQUEST_CREDENTIALS_SEND_TO_EMAIL', 'ipabelona@gmail.com');
 
