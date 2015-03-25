@@ -32,7 +32,12 @@ class Users_model extends CI_Model {
 	{
 		$user = $this->get_user($user_id);
 		
-		$data['password'] = $this->generate_secure_keys(sha1($user['email_address']), $data['password'], TRUE);
+		if (trim($data['password']) !== '') {
+			$data['password'] = $this->generate_secure_keys(sha1($user['email_address']), $data['password'], TRUE);
+		} else {
+			unset($data['password']);	
+		}
+		
 		$this->db->where('user_id', $user_id);
 		$this->db->update(TABLE_USERS, $data);	
 		

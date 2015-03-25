@@ -102,6 +102,10 @@ class Admin extends CI_Controller {
 			$msg = '<div class="alert alert-success text-center" role="alert">User account successfully created.</div><br />';
 		}
 		
+		if ($msg == 'user_edited') {
+			$msg = '<div class="alert alert-success text-center" role="alert">User account successfully edited.</div><br />';
+		}
+		
 		$data['msg'] = $msg;
 		
 		$this->load->view('common/header', $data);
@@ -231,6 +235,67 @@ class Admin extends CI_Controller {
 		
 		$this->load->view('common/header', $data);
 		$this->load->view('pages/admin/add_user');
+		$this->load->view('common/footer');
+	}
+	
+	
+	public function edit_user_ui($user_id="")
+	{
+		$this->load->model('users_model');
+		$msg = "";
+		
+		$this->load->library('form_validation');
+		
+		$this->form_validation->set_rules('full_name', 'Full Name', 'required');
+		$this->form_validation->set_rules('email_address', 'Email Address', 'required|valid_email');
+		
+		if ($this->form_validation->run() == FALSE) {
+			$error = trim(validation_errors());
+			if ($error) {
+				$msg = '<div class="alert alert-warning" role="alert">'.$error.'</div><br />';
+			}
+			
+		} else {
+			
+			$data['is_admin'] = 'no';
+			$data['full_name'] = $this->input->post('full_name', TRUE);
+			$data['email_address'] = $this->input->post('email_address', TRUE);
+			$data['status'] = '1';
+			$data['password'] = $this->input->post('password', TRUE);
+			
+			if (isset($_POST['is_admin'])) {
+				$data['is_admin'] = 'yes';
+			}
+			
+			
+			$this->users_model->update_user(
+				$user_id,
+				$data
+			);
+			
+			
+			
+			redirect('admin/users/?msg=user_edited');
+			
+		}
+		
+		$data['page_title'] = 'Admin Page';
+		$data['pending_verification'] = '';
+		$data['users'] = 'active';
+		$data['add_new_user'] = '';
+		$data['page_name'] = 'Edit User';
+		$data['total_pending'] = count($this->users_model->get_users(true));
+		
+		$data['msg'] = $msg;
+		
+		$data['user_id'] = $user_id;
+		$user = $this->users_model->get_user($user_id);
+		$data['full_name'] = $user['full_name'];
+		$data['email_address'] = $user['email_address'];
+		$data['is_admin'] = $user['is_admin'];
+		
+		$this->load->view('common/header', $data);
+		$this->load->view('pages/admin/edit_user');
 		$this->load->view('common/footer');
 	}
 	

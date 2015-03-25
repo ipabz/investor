@@ -75,7 +75,7 @@
                         <?php endif; ?>
                         
                         <?php if ($page_name == 'Users') : ?>
-                    	<a href="<?php print site_url('admin/approve/'.$user_id); ?>" title="Edit User" class="btn btn-success btn-sm"><span class="glyphicon glyphicon-pencil"></span></a>
+                    	<a href="<?php print site_url('admin/edit_user_ui/'.$user_id); ?>" title="Edit User" class="btn btn-success btn-sm"><span class="glyphicon glyphicon-pencil"></span></a>
                         <a href="<?php print site_url('admin/delete_user/'.$user_id); ?>" title="Delete User" class="btn btn-success btn-sm"><span class="glyphicon glyphicon-remove"></span></a>
                         <?php endif; ?>
                     </td>
