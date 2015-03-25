@@ -23,7 +23,7 @@
             <div role="tabpanel" class="tab-pane fade in <?php print (($current_page == 'signup') ? "active" : ""); ?>" id="signup">
               <div class="registration-form">
                 <!--<form id="reg-form" class="form-horizontal" action="register" role="form" method="POST">-->
-                <?php print form_open('', 'id="reg-form" class="form-horizontal" role="form"'); ?>
+                <?php print form_open('request_credentials/do_action', 'id="reg-form" class="form-horizontal" role="form"'); ?>
                   <div class="form-group has-feedback home-fix">
                     <div class="col-md-12">
                       <input type="text" name="full_name" id="full_name" value="" required placeholder="Full Name" class="login-input" />
@@ -102,44 +102,3 @@
 </div>
 <!-- /.container --> 
 
-<!-- PRIVACY MODAL -->
-<div class="modal fade" id="privacy">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title">Vitalyze.Me Privacy Policy</h4>
-      </div>
-      <div class="modal-body">
-        <p>Coming soon...</p>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-      </div>
-    </div>
-    <!-- /.modal-content --> 
-  </div>
-  <!-- /.modal-dialog --> 
-</div>
-<!-- /.modal --> 
-
-<!-- TERMS MODAL -->
-<div class="modal fade" id="terms">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title">Vitalyze.Me Terms & Conditions</h4>
-      </div>
-      <div class="modal-body">
-        <p>Coming soon...</p>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-      </div>
-    </div>
-    <!-- /.modal-content --> 
-  </div>
-  <!-- /.modal-dialog --> 
-</div>
-<!-- /.modal -->

@@ -41,6 +41,8 @@
 $route['default_controller'] = "request_credentials";
 $route['404_override'] = '';
 
+$route['confirmation/success'] = "request_credentials/success";
+
 
 /* End of file routes.php */
 /* Location: ./application/config/routes.php */

@@ -224,3 +224,22 @@ label {
 .error-msg {
 	color: #A94442;
 }
+
+.main-container-admin {
+	background: #fff;
+	width: 960px;
+	margin: 43px auto;
+	padding: 20px;
+}
+
+.main-container-admin .left {
+	width: 20%;	
+	float: left;
+}
+
+.main-container-admin .right {
+	width: 80%;	
+	float: right;
+	padding-left: 20px;
+	
+}
