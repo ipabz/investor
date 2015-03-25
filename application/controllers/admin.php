@@ -2,32 +2,103 @@
 
 class Admin extends CI_Controller {
 	
-	public function index()
+	public function index($offset=0)
 	{
+		$this->load->library('pagination');
+		$this->load->model('users_model');
+		
+		$config['base_url'] = site_url('admin/index/');
+		$config['total_rows'] = count($this->users_model->get_users(true));
+		$config['per_page'] = 25; 
+		$config['uri_segment'] = 3;
+		$config['full_tag_open'] = '<nav class="pull-left"><ul class="pagination pagination-sm">';
+		$config['full_tag_close'] = '</ul></nav>';
+		$config['first_link'] = '';
+		$config['first_tag_open'] = '';
+		$config['first_tag_close'] = '';
+		$config['last_link'] = '';
+		$config['last_tag_open'] = '';
+		$config['last_tag_close'] = '';
+		$config['next_link'] = '&raquo;';
+		$config['next_tag_open'] = '<li>';
+		$config['next_tag_close'] = '</a></li>';
+		$config['prev_link'] = '&laquo;';
+		$config['prev_tag_open'] = '<li>';
+		$config['prev_tag_close'] = '</a></li>';
+		$config['num_tag_open'] = '<li>';
+		$config['num_tag_close'] = '</li>';
+		$config['cur_tag_open'] = '<li class="active"><a href="">';
+		$config['cur_tag_close'] = '</a></li>';
+		
 		$data['page_title'] = 'Admin Page';
 		$data['pending_verification'] = 'active';
 		$data['users'] = '';
 		$data['add_new_user'] = '';
 		$data['page_name'] = 'Pending Verifications';
+		$data['total_pending'] = count($this->users_model->get_users(true));
 		
-		$this->load->model('users_model');
-		$data['all_users'] = $this->users_model->get_users(true);
+		$msg = $this->input->get('msg');
+		
+		if ($msg == 'approve_success') {
+			$msg = '<div class="alert alert-success text-center" role="alert">User account request has been successfully approved. An email was sent to the user as notification of the status of his/her request.</div><br />';
+		}
+		
+		$data['msg'] = $msg;
+		
+		$data['all_users'] = $this->users_model->get_users(true, $config['per_page'], $offset);
+		$this->pagination->initialize($config); 
 		
 		$this->load->view('common/header', $data);
 		$this->load->view('pages/admin/admin_page');
 		$this->load->view('common/footer');
 	}
 	
-	public function users()
+	public function users($offset=0)
 	{
+		$this->load->library('pagination');
+		$this->load->model('users_model');
+		
+		$config['base_url'] = site_url('admin/users/');
+		$config['total_rows'] = count($this->users_model->get_users());
+		$config['per_page'] = 25; 
+		$config['uri_segment'] = 3;
+		$config['full_tag_open'] = '<nav class="pull-left"><ul class="pagination pagination-sm">';
+		$config['full_tag_close'] = '</ul></nav>';
+		$config['first_link'] = '';
+		$config['first_tag_open'] = '';
+		$config['first_tag_close'] = '';
+		$config['last_link'] = '';
+		$config['last_tag_open'] = '';
+		$config['last_tag_close'] = '';
+		$config['next_link'] = '&raquo;';
+		$config['next_tag_open'] = '<li>';
+		$config['next_tag_close'] = '</a></li>';
+		$config['prev_link'] = '&laquo;';
+		$config['prev_tag_open'] = '<li>';
+		$config['prev_tag_close'] = '</a></li>';
+		$config['num_tag_open'] = '<li>';
+		$config['num_tag_close'] = '</li>';
+		$config['cur_tag_open'] = '<li class="active"><a href="">';
+		$config['cur_tag_close'] = '</a></li>';
+		
 		$data['page_title'] = 'Admin Page';
 		$data['pending_verification'] = '';
 		$data['users'] = 'active';
 		$data['add_new_user'] = '';
 		$data['page_name'] = 'Users';
+		$data['total_pending'] = count($this->users_model->get_users(true));
 		
-		$this->load->model('users_model');
-		$data['all_users'] = $this->users_model->get_users(false);
+		$data['all_users'] = $this->users_model->get_users(false, $config['per_page'], $offset);
+		
+		$this->pagination->initialize($config); 
+		
+		$msg = $this->input->get('msg');
+		
+		if ($msg == 'delete_success') {
+			$msg = '<div class="alert alert-success text-center" role="alert">User account successfully deleted.</div><br />';
+		}
+		
+		$data['msg'] = $msg;
 		
 		$this->load->view('common/header', $data);
 		$this->load->view('pages/admin/admin_page');
@@ -61,7 +132,7 @@ class Admin extends CI_Controller {
 			
 			$msg = "Hi ".ucwords($exp[0]).", <br><br>";
 			$msg .= "Your request has been approved. Your password is <br><pre>".$password."</pre><br>";
-			$msg .= "You can now login here: <a href='".site_url('login');."'></a><br><br>";
+			$msg .= "You can now login here: <a href='".site_url('login')."'></a><br><br>";
 			
 			$this->email->message($msg);	
 			
@@ -69,6 +140,15 @@ class Admin extends CI_Controller {
 			
 		}
 		
+		redirect('admin/index/?msg=approve_success');
+		
+	}
+	
+	public function delete_user($user_id)
+	{
+		$this->load->model('users_model');
+		$this->users_model->delete_user($user_id);
+		redirect('admin/users/?msg=delete_success');
 	}
 	
 }

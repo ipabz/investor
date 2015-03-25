@@ -70,6 +70,12 @@ class Users_model extends CI_Model {
 
 		return $query->result_array();
 	}
+	
+	public function delete_user($user_id)
+	{
+		$this->db->where('user_id', $user_id);
+		$this->db->delete(TABLE_USERS);	
+	}
 		
 }
 

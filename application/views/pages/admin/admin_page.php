@@ -12,16 +12,20 @@
 	<div class="left">
     	<div class="list-group">
           <a href="<?php print site_url('admin'); ?>" class="list-group-item <?php print $pending_verification; ?>">
-          	Pending Verification
+          	Pending Verification <span class="badge"><?php print $total_pending; ?></span>
           </a>
           <a href="<?php print site_url('admin/users'); ?>" class="list-group-item <?php print $users; ?>">Users</a>
           <a href="#" class="list-group-item <?php print $add_new_user; ?>">Add New User</a>
-          <a href="#" class="list-group-item"><div class="btn btn-danger" style="width: 100%">Logout</div></a>
+          <a href="#" class="list-group-item"><div class="text-center">User Name</div><div class="btn btn-danger" style="width: 100%">Logout</div></a>
         </div>
     </div>
     
     <div class="right">
-    
+    	<?php
+		if (@$msg != "") {
+			print $msg;
+		}
+		?>
     	<h3><?php print $page_name; ?></h3> <hr />
     
     	<table class="table table-striped">
@@ -38,6 +42,15 @@
             <tbody>
             <?php
 			$counter = 1;
+			
+			if (!$all_users) {
+			?>
+            	<tr>
+                	<td colspan="6" class="text-center"><?php print $page_name." empty!" ?></td>
+                </tr>
+            <?php
+			}
+			
 			foreach($all_users as $row) {
 				extract($row);
 			?>
@@ -65,7 +78,12 @@
                     </td>
                     <td>
                     	<?php if ($page_name == 'Pending Verifications') : ?>
-                    	<a href="" title="Approve Request" class="btn btn-success"><span class="glyphicon glyphicon-hand-right"></span> Approve</a>
+                    	<a href="<?php print site_url('admin/approve/'.$user_id); ?>" title="Approve Request" class="btn btn-success btn-sm"><span class="glyphicon glyphicon-hand-right"></span> Approve</a>
+                        <?php endif; ?>
+                        
+                        <?php if ($page_name == 'Users') : ?>
+                    	<a href="<?php print site_url('admin/approve/'.$user_id); ?>" title="Edit User" class="btn btn-success btn-sm"><span class="glyphicon glyphicon-pencil"></span></a>
+                        <a href="<?php print site_url('admin/delete_user/'.$user_id); ?>" title="Delete User" class="btn btn-success btn-sm"><span class="glyphicon glyphicon-remove"></span></a>
                         <?php endif; ?>
                     </td>
                 </tr>
@@ -75,6 +93,8 @@
 			?>
             </tbody>
         </table>
+        
+        <div><?php print $this->pagination->create_links(); ?></div>
     
     </div>
 
