@@ -299,6 +299,13 @@ class Admin extends CI_Controller {
 		$this->load->view('common/footer');
 	}
 	
+	public function generate_password()
+	{
+		$this->load->model('users_model');
+		$pass = substr($this->users_model->generate_secure_keys(sha1(@time), rand(), true), 1, 12);
+		print $pass;	
+	}
+	
 }
 
 /* End of file login.php */

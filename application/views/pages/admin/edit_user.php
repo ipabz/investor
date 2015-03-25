@@ -40,6 +40,7 @@
                 <label for="inputPassword3" class="col-sm-2 control-label">Password</label>
                 <div class="col-sm-10">
                   <input type="password" name="password" value="" class="form-control" id="inputPassword3" placeholder="Password">
+                  <div class="text-right"><a id="generate_password" href="<?php print site_url('admin/generate_password'); ?>">Generate Password</a></div>
                 </div>
               </div>
               <div class="form-group">

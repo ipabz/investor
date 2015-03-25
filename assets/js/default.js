@@ -1,4 +1,11 @@
 $(document).ready(function() {
+	
+	$('#generate_password').click(function(e) {
+		e.preventDefault();
+		$.get($(this).attr('href'), function(data) {
+			$('#inputPassword3').val(data);	
+		});	
+	});
 
 	$('#reg-form').validate({   
 		invalidHandler:
