@@ -21,3 +21,8 @@ The will create all the db tables.
     $config['migration_enabled'] = FALSE;
     
 That's it.
+
+
+# Demo
+
+<a href="http://demo.ivanclintpabelona.com/investor/">Demo Site</a>
