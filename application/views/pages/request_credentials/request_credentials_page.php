@@ -37,7 +37,16 @@
                     <div class="col-md-12">
                       <input type="email" name="email_address" id="email_address" value="" required placeholder="Email Address" class="login-input" />
                       <span class="glyphicon form-control-feedback home-icon" id="email_address1"></span> </div>
+                      
+                      
+                      <div class="col-md-12">
+                        <input type="password" name="password" id="password" value="" required="" placeholder="Password" class="login-input" aria-required="true">
+                        <span class="glyphicon form-control-feedback home-icon" id="password1"></span>
                   </div>
+                      
+                  </div>
+                  
+                  
 
 
                   <br />

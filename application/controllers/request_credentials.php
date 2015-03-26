@@ -18,6 +18,7 @@ class Request_credentials extends CI_Controller {
 		
 		$this->form_validation->set_rules('full_name', 'Full Name', 'required');
 		$this->form_validation->set_rules('email_address', 'Email Address', 'required|valid_email');
+		$this->form_validation->set_rules('password', 'Password', 'required');
 		
 		if ($this->form_validation->run() == FALSE) {
 			$error = validation_errors();
@@ -25,12 +26,14 @@ class Request_credentials extends CI_Controller {
 		} else {
 			
 			$this->load->model('users_model');
-			$password = substr( sha1($this->users_model->generate_secure_keys(@time(), rand())), 1, 12);
+			$password = $this->input->post('password', TRUE);
 			
 			$this->users_model->create_user(
 				$this->input->post('full_name', TRUE),
 				$this->input->post('email_address', TRUE),
-				$password
+				$password,
+				'no',
+				'1'
 			);
 			
 			if (SEND_EMAIL) {
@@ -48,6 +51,23 @@ class Request_credentials extends CI_Controller {
 				$msg = "Someone has requested login credentials. Please login to the <a href='".site_url('login')."'>admin panel</a>. <br><br><strong>Person Details</strong><br><br>";
 				$msg .= "Full Name: ".ucwords($this->input->post('full_name', TRUE));
 				$msg .= "<br>Email Address: ".$this->input->post('email_address', TRUE);
+				
+				$this->email->message($msg);	
+				
+				$this->email->send();
+				
+				$this->email->clear();
+				
+				$this->email->from('info@vitalye.me', 'Investor Login Application');
+				$this->email->to($this->input->post('email_address', TRUE)); 
+				
+				$this->email->subject('Requesteded Credentials: Investor Login Application');
+				
+				$exp = explode(' ', $this->input->post('full_name', TRUE));
+				
+				$msg = "Hi ".ucwords($exp[0]).", <br><br>";
+				$msg .= "Your request has been approved. Your password is <br><pre>".$password."</pre><br>";
+				$msg .= "You can now login here: <a href='".site_url('login')."'></a><br><br>";
 				
 				$this->email->message($msg);	
 				

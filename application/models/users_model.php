@@ -16,7 +16,7 @@ class Users_model extends CI_Model {
 	public function login($email, $password)
 	{
 		$condition['email_address'] = $email;
-		$condition['password'] = $this->generate_secure_keys(sha1($email), $password, TRUE);
+		$condition['password'] = $this->generate_secure_keys(sha1(SALT), $password, TRUE);
 		$condition['status'] = '1';
 		
 		$query = $this->db->get_where(TABLE_USERS, $condition);
@@ -36,7 +36,7 @@ class Users_model extends CI_Model {
 		
 		$data['full_name'] = trim($full_name);
 		$data['email_address'] = trim($email_address);
-		$data['password'] = $this->generate_secure_keys(sha1($data['email_address']), $password, TRUE);
+		$data['password'] = $this->generate_secure_keys(sha1(SALT), $password, TRUE);
 		$data['date_created'] = $time;
 		$data['last_updated'] = $time;
 		$data['status'] = $status;
@@ -50,7 +50,7 @@ class Users_model extends CI_Model {
 		$user = $this->get_user($user_id);
 		
 		if (trim($data['password']) !== '') {
-			$data['password'] = $this->generate_secure_keys(sha1($user['email_address']), $data['password'], TRUE);
+			$data['password'] = $this->generate_secure_keys(sha1(SALT), $data['password'], TRUE);
 		} else {
 			unset($data['password']);	
 		}

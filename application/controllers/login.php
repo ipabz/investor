@@ -55,7 +55,7 @@ class Login extends CI_Controller {
 	public function generate_password()
 	{
 		$this->load->model('users_model');
-		$this->users_model->generate_secure_keys(sha1('ipabelona@gmail.com'), 'admin');
+		$this->users_model->generate_secure_keys(sha1(SALT), 'admin');
 	}
 	
 	
