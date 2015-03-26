@@ -14,8 +14,12 @@
           
           <!-- Nav tabs -->
           <ul class="nav nav-tabs" style="margin-bottom: -10px;" role="tablist">
+          	<?php if ($current_page == 'signup') : ?>
             <li id="signup-tab" role="presentation" style="height:60px !important; background:#fff;box-shadow: -5px 0 0 #1274cd; font-size: 20px;width:60%; text-align: center;" class="<?php print (($current_page == 'signup') ? "active" : ""); ?>"> <a style="border:none !important;" href="#signup" aria-controls="signup" role="tab" data-toggle="tab">Request Credentials</a> </li>
+            <?php endif; ?>
+            <?php if ($current_page == 'login') : ?>
             <li id="login-tab" role="presentation" style="height:60px !important; background: #28a8ee !important;float: right; font-size: 20px;width: 40%; text-align: center;" class="<?php print (($current_page == 'login') ? "active" : ""); ?>"> <a href="#login" style="color: #fff;background: #28a8ee !important;border:none !important;" aria-controls="login" role="tab" data-toggle="tab">Login</a> </li>
+            <?php endif; ?>
           </ul>
           
           <!-- Tab panes -->
@@ -66,7 +70,7 @@
                     <div class="remember-me">
                       <input type="checkbox" value="1" name="remember_me" checked style="margin-top: 2px;">
                       Remember Me </div>
-                    <div class="forgot-pw"> <!--<a href="#">Forgot Password?</a>--> </div>
+                    <div class="forgot-pw"> <a href="http://futureofdigitalhealth.com/vitalyze-me-non-disclosure-agreement/">Want Access?</a> </div>
                   </div>
                   <div class="login-button-container" style="float: right;">
                     <button class="login-button">Login</button>

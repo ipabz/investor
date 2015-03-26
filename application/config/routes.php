@@ -38,7 +38,7 @@
 |
 */
 
-$route['default_controller'] = "request_credentials";
+$route['default_controller'] = "login";
 $route['404_override'] = '';
 
 $route['confirmation/success'] = "request_credentials/success";
