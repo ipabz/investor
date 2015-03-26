@@ -54,7 +54,7 @@ class Migration_Initial_schema extends CI_Migration {
 		'email_address' => 'ipabelona@gmail.com',
 		'status' => '1',
 		'is_admin' => 'yes',
-		'password' => '0963ac0f9647b260575697bd2ad9560cefc644a5',
+		'password' => '95be3072f58824f8d93cd73689f4fe0e4a891221',
 		'date_created' => $time,
 		'last_updated' => $time,
 		'date_verified' => $time
