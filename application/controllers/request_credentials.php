@@ -43,7 +43,7 @@ class Request_credentials extends CI_Controller {
 				$config['mailtype'] = 'html';
 				$this->email->initialize($config);
 
-				$this->email->from('info@vitalye.me', 'Investor Login Application');
+				$this->email->from('noreply@vitalyze.me', 'Investor Login Application');
 				$this->email->to(REQUEST_CREDENTIALS_SEND_TO_EMAIL); 
 				
 				$this->email->subject('Request Credentials: Investor Login Application');
@@ -58,7 +58,7 @@ class Request_credentials extends CI_Controller {
 				
 				$this->email->clear();
 				
-				$this->email->from('info@vitalye.me', 'Investor Login Application');
+				$this->email->from('noreply@vitalyze.me', 'Investor Login Application');
 				$this->email->to($this->input->post('email_address', TRUE)); 
 				
 				$this->email->subject('Requesteded Credentials: Investor Login Application');
@@ -67,7 +67,7 @@ class Request_credentials extends CI_Controller {
 				
 				$msg = "Hi ".ucwords($exp[0]).", <br><br>";
 				$msg .= "Your request has been approved. Your password is <br><pre>".$password."</pre><br>";
-				$msg .= "You can now login here: <a href='".site_url('login')."'></a><br><br>";
+				$msg .= "You can now login here: <a href='".site_url('login')."'>Login Page</a><br><br>";
 				
 				$this->email->message($msg);	
 				

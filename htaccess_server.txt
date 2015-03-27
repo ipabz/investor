@@ -1,0 +1,5 @@
+RewriteEngine on
+RewriteBase /investors/
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.*)$ /investors/index.php?/$1 [L]
